@@ -916,10 +916,10 @@ def render_login_page():
                                 margin-bottom:12px;">
                         {logo_content}
                     </div>
-                    <div style="font-family:'Sora',sans-serif;font-size:26px;font-weight:800;color:#10213F;">
+                    <div style="font-family:'Sora',sans-serif;font-size:26px;font-weight:800;color:#FFDB58;">
                         CareerCompass AI
                     </div>
-                    <div style="font-family:'Inter',sans-serif;font-size:13px;color:#616E7F;
+                    <div style="font-family:'Inter',sans-serif;font-size:13px;color:#ffffff;
                                 margin:4px 0 18px 0;">
                         Your personal guide to the right tech career
                     </div>
@@ -947,7 +947,7 @@ def render_login_page():
                         st.error("Invalid username or password.")
 
                 st.markdown(
-                    "<div style='text-align:center;font-size:13px;color:#616E7F;margin-top:8px;'>New here?</div>",
+                    "<div style='text-align:center;font-size:13px;color:#FFFFFF;margin-top:8px;'>New here?</div>",
                     unsafe_allow_html=True,
                 )
                 if st.button("Create an account", use_container_width=True):
@@ -983,13 +983,13 @@ def render_login_page():
             st.markdown(
                 "<div style='display:flex;align-items:center;gap:12px;margin:18px 0 14px 0;'>"
                 "<div style='flex:1;height:1px;background:#D9E1EC;'></div>"
-                "<span style='color:#616E7F;font-size:12px;font-weight:600;letter-spacing:0.5px;'>OR</span>"
+                "<span style='color:#616E7F;font-size:14px;font-weight:600;letter-spacing:0.5px;'>OR</span>"
                 "<div style='flex:1;height:1px;background:#D9E1EC;'></div>"
                 "</div>",
                 unsafe_allow_html=True,
             )
 
-            if st.button("🔵  Continue with Google", use_container_width=True):
+            if st.button("Continue with Google", use_container_width=True):
                 google_login()
 
 
@@ -1006,7 +1006,7 @@ with st.sidebar:
 
     _sidebar_seal_content = (
         LOGO_IMG_TAG if LOGO_IMG_TAG
-        else '<span style="font-family:\'Sora\',sans-serif;font-weight:700;color:#10213F;">CC</span>'
+        else '<span style="font-family:\'Sora\',sans-serif;font-weight:700;color:#FFFFFF;">CC</span>'
     )
 
     st.markdown(
@@ -1020,7 +1020,7 @@ with st.sidebar:
                 {_sidebar_seal_content}
             </div>
             <div style="font-family:'Sora',sans-serif;font-size:19px;font-weight:700;
-                        line-height:1.2;color:#F2F6FC;">CareerCompass AI</div>
+                        line-height:1.2;color:#FFDB58;">CareerCompass AI</div>
             <div style="font-size:12px;color:#B9C6DA;margin-top:2px;">
                 Welcome  <b>{st.session_state.username}</b>
             </div>
