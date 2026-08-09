@@ -1,0 +1,7 @@
+streamlit>=1.32
+langchain-groq
+langchain-core
+pypdf
+python-docx
+pytesseract
+pillow
