@@ -67,281 +67,489 @@ LOGO_IMG_TAG = (
 # CSS
 CUSTOM_CSS = """
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap');
 
 :root {
-    --navy: #10213F;
-    --navy-light: #1B3868;
-    --blue: #2E63D6;
-    --gold: #E3A63E;
-    --cyan: #34C3F5;
-    --bg: #F2F6FC;
+    --purple: #8B5CF6;
+    --purple-dark: #6D3FE8;
+    --purple-soft: #F3EEFF;
+    --purple-pale: #FAF8FF;
+    --bg: #F7F5FB;
     --card: #FFFFFF;
-    --ink: #1C2530;
-    --ink-soft: #616E7F;
+    --ink: #24202D;
+    --muted: #8A8496;
+    --border: #E9E4F2;
+    --user-bubble: #A65AD7;
+    --assistant-bubble: #FFFFFF;
 }
 
-/* ---- Base page ---- */
-html, body, [class*="css"]  {
+html, body, [class*="css"] {
     font-family: 'Inter', sans-serif;
     color: var(--ink);
 }
+
 .stApp {
-    background: var(--bg);
-}
-h1, h2, h3, .stMarkdown h1, .stMarkdown h2, .stMarkdown h3 {
-    font-family: 'Sora', sans-serif;
-    color: var(--navy);
+    background:
+        radial-gradient(circle at 80% 0%, rgba(139,92,246,.08), transparent 28%),
+        var(--bg);
 }
 
-/* ---- Masthead ---- */
+h1, h2, h3, .stMarkdown h1, .stMarkdown h2, .stMarkdown h3 {
+    font-family: 'Sora', sans-serif;
+    color: var(--ink);
+}
+
+/* ---------- Main header ---------- */
 .cc-masthead {
     display: flex;
     align-items: center;
-    gap: 16px;
-    padding: 6px 0 18px 0;
-    border-bottom: 3px solid var(--gold);
+    gap: 13px;
+    padding: 4px 0 15px 0;
     margin-bottom: 4px;
+    border-bottom: 1px solid var(--border);
 }
+
 .cc-seal {
     flex-shrink: 0;
-    width: 54px;
-    height: 54px;
-    border-radius: 16px;
-    background: #FFFFFF;
-    border: 2px solid var(--gold);
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #9B62E8, #7A45D9);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Sora', sans-serif;
-    font-weight: 700;
-    font-size: 20px;
-    color: var(--gold);
-    letter-spacing: 1px;
     overflow: hidden;
-    padding: 2px;
+    padding: 4px;
     box-sizing: border-box;
+    box-shadow: 0 5px 16px rgba(111,63,210,.18);
 }
+
+.cc-seal img {
+    border-radius: 10px;
+}
+
 .cc-title {
     font-family: 'Sora', sans-serif;
     font-weight: 800;
-    font-size: 32px;
-    color: var(--navy);
+    font-size: 26px;
+    color: var(--ink);
     line-height: 1.1;
     margin: 0;
 }
+
 .cc-subtitle {
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    color: var(--ink-soft);
-    letter-spacing: 0.2px;
-    margin-top: 2px;
-}
-.cc-hairline {
-    height: 2px;
-    width: 100%;
-    background: var(--navy);
-    margin-top: -18px;
-    margin-bottom: 22px;
-    opacity: 0.85;
-}
-.cc-chips {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
-}
-.cc-chip {
-    font-family: 'Inter', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--navy);
-    background: var(--card);
-    border: 1px solid var(--gold);
-    border-radius: 6px;
-    padding: 5px 12px;
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 3px;
 }
 
-/* ---- Sidebar: "Career Desk" ---- */
+.cc-hairline {
+    display: none;
+}
+
+/* ---------- Feature chips ---------- */
+.cc-chips {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 10px 0 18px 0;
+}
+
+.cc-chip {
+    font-size: 12px;
+    font-weight: 600;
+    color: #7651B8;
+    background: var(--purple-pale);
+    border: 1px solid #E7DDF8;
+    border-radius: 999px;
+    padding: 5px 10px;
+}
+
+/* ---------- Sidebar ---------- */
 section[data-testid="stSidebar"] {
-    background: var(--navy);
-    border-right: 3px solid var(--gold);
+    background: #FFFFFF;
+    border-right: 1px solid var(--border);
 }
-section[data-testid="stSidebar"] div[data-testid="stSidebarUserContent"] {
-    padding-top: 1.2rem !important;
-}
+
+section[data-testid="stSidebar"] div[data-testid="stSidebarUserContent"],
 section[data-testid="stSidebar"] div[data-testid="stSidebarContent"] {
-    padding-top: 1.2rem !important;
+    padding-top: 1rem !important;
 }
-div[data-testid="stAppViewContainer"] .main .block-container {
-    padding-top: 2rem !important;
-}
+
 section[data-testid="stSidebar"] * {
-    color: var(--bg) !important;
+    color: var(--ink) !important;
 }
+
 section[data-testid="stSidebar"] h1,
 section[data-testid="stSidebar"] h2,
 section[data-testid="stSidebar"] h3 {
     font-family: 'Sora', sans-serif;
-    color: var(--gold) !important;
-}
-section[data-testid="stSidebar"] hr {
-    border-color: rgba(227,166,62,0.35);
-}
-section[data-testid="stSidebar"] .stTextInput input {
-    background: var(--navy-light);
-    color: var(--bg) !important;
-    border: 1px solid var(--gold);
-    border-radius: 6px;
-}
-section[data-testid="stSidebar"] [data-testid="stFileUploaderDropzone"] {
-    background: var(--navy-light) !important;
-    border: 1.5px dashed var(--gold) !important;
-    border-radius: 6px;
-}
-section[data-testid="stSidebar"] .stCodeBlock,
-section[data-testid="stSidebar"] code {
-    font-family: 'JetBrains Mono', monospace !important;
-    background: var(--navy-light) !important;
-    border: 1px solid rgba(227,166,62,0.4);
-}
-section[data-testid="stSidebar"] .stButton button {
-    background: var(--gold);
-    color: var(--navy) !important;
-    font-weight: 600;
-    border: none;
-    border-radius: 6px;
-}
-section[data-testid="stSidebar"] .stButton button:hover {
-    background: #edb955;
-}
-section[data-testid="stSidebar"] .stAlert {
-    background: var(--navy-light) !important;
-    border: 1px solid rgba(227,166,62,0.4);
-    border-radius: 6px;
+    color: var(--ink) !important;
 }
 
-/* ---- Chat messages ---- */
+section[data-testid="stSidebar"] hr {
+    border-color: var(--border);
+}
+
+section[data-testid="stSidebar"] .stTextInput input {
+    background: #FFFFFF !important;
+    color: var(--ink) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 10px !important;
+}
+
+section[data-testid="stSidebar"] .stTextInput input:focus {
+    border-color: var(--purple) !important;
+    box-shadow: 0 0 0 2px rgba(139,92,246,.10) !important;
+}
+
+section[data-testid="stSidebar"] [data-testid="stFileUploaderDropzone"] {
+    background: var(--purple-pale) !important;
+    border: 1.5px dashed #CDB9EE !important;
+    border-radius: 12px !important;
+    padding: 8px !important;
+}
+
+section[data-testid="stSidebar"] [data-testid="stFileUploaderDropzone"]:hover {
+    border-color: var(--purple) !important;
+    background: #F7F1FF !important;
+}
+
+section[data-testid="stSidebar"] .stButton button {
+    background: var(--purple) !important;
+    color: #FFFFFF !important;
+    font-weight: 600 !important;
+    border: none !important;
+    border-radius: 10px !important;
+    min-height: 38px;
+}
+
+section[data-testid="stSidebar"] .stButton button:hover {
+    background: var(--purple-dark) !important;
+}
+
+section[data-testid="stSidebar"] .stAlert {
+    background: var(--purple-pale) !important;
+    border: 1px solid #E5D9F7 !important;
+    border-radius: 10px !important;
+}
+
+/* ---------- Compact resume card ---------- */
+.cc-resume-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    margin: 7px 0 9px 0;
+    background: #FBFAFE;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+.cc-file-icon {
+    width: 34px;
+    height: 34px;
+    flex: 0 0 34px;
+    border-radius: 9px;
+    background: #F0E8FF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+}
+
+.cc-file-info {
+    min-width: 0;
+    flex: 1;
+}
+
+.cc-file-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cc-file-meta {
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 2px;
+}
+
+/* ---------- Chat messages ---------- */
 [data-testid="stChatMessage"] {
-    border-radius: 10px;
-    padding: 14px 18px;
-    margin-bottom: 12px;
-    box-shadow: 0 1px 3px rgba(16,33,63,0.08);
+    border-radius: 18px !important;
+    padding: 12px 15px !important;
+    margin-bottom: 9px !important;
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 10px rgba(46, 31, 71, .045);
+    background: var(--assistant-bubble);
 }
-/* user = odd position -> navy/blue card */
+
 [data-testid="stChatMessage"]:nth-of-type(odd) {
-    background: var(--navy);
-    border-left: none;
+    background: var(--user-bubble);
+    border-color: transparent;
 }
+
 [data-testid="stChatMessage"]:nth-of-type(odd) p,
 [data-testid="stChatMessage"]:nth-of-type(odd) li,
-[data-testid="stChatMessage"]:nth-of-type(odd) span {
-    color: var(--bg) !important;
+[data-testid="stChatMessage"]:nth-of-type(odd) span,
+[data-testid="stChatMessage"]:nth-of-type(odd) strong {
+    color: #FFFFFF !important;
 }
-/* assistant = even position -> white card, gold rule */
+
 [data-testid="stChatMessage"]:nth-of-type(even) {
-    background: var(--card);
-    border-left: 4px solid var(--gold);
+    background: #FFFFFF;
+    border-left: 3px solid #B78AE8;
 }
+
+[data-testid="stChatMessage"] p {
+    line-height: 1.55;
+}
+
 [data-testid="stChatMessage"] table {
-    background: var(--card);
+    background: #FFFFFF;
     border-collapse: collapse;
     width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
 }
+
 [data-testid="stChatMessage"] th {
-    background: var(--navy);
-    color: var(--bg);
+    background: #F1EAFE;
+    color: #5F3B91;
     font-family: 'Sora', sans-serif;
-    padding: 6px 10px;
+    padding: 7px 10px;
 }
+
 [data-testid="stChatMessage"] td {
-    padding: 6px 10px;
-    border-bottom: 1px solid rgba(16,33,63,0.12);
+    padding: 7px 10px;
+    border-bottom: 1px solid var(--border);
 }
 
-/* ---- Chat input ---- */
+/* ---------- Chat input: simple rounded bar ---------- */
 [data-testid="stChatInput"] {
-    border-top: 2px solid var(--gold);
-    background: var(--bg);
+    border-top: none !important;
+    background: transparent !important;
+    padding-top: 8px !important;
 }
+
+[data-testid="stChatInput"] > div {
+    background: #FFFFFF !important;
+    border: 1px solid #DED5EA !important;
+    border-radius: 18px !important;
+    box-shadow: 0 5px 20px rgba(69, 45, 98, .08) !important;
+    padding: 3px 7px 3px 12px !important;
+}
+
 [data-testid="stChatInput"] textarea {
-    font-family: 'Inter', sans-serif;
-    border: 1px solid var(--navy) !important;
-    border-radius: 8px !important;
+    font-family: 'Inter', sans-serif !important;
+    color: var(--ink) !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    font-size: 14px !important;
 }
 
-/* ---- Expander (response details) ---- */
+[data-testid="stChatInput"] textarea::placeholder {
+    color: #A29AAA !important;
+}
+
+[data-testid="stChatInput"] button {
+    background: var(--purple) !important;
+    color: #FFFFFF !important;
+    border-radius: 50% !important;
+    width: 34px !important;
+    height: 34px !important;
+}
+
+[data-testid="stChatInput"] button:hover {
+    background: var(--purple-dark) !important;
+}
+
+/* ---------- Expander ---------- */
 .streamlit-expanderHeader, [data-testid="stExpander"] summary {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
-    color: var(--navy) !important;
-}
-[data-testid="stExpander"] {
-    border: 1px dashed var(--gold);
-    border-radius: 6px;
-    background: var(--card);
+    font-size: 12px;
+    color: #6B4A9D !important;
 }
 
-/* ---- Login / signup card ----
-   This is the bordered container the login form sits in. It needs its
-   own explicit background + text colors because it renders on top of
-   the dark login-page gradient, not the light app background. */
-[data-testid="stVerticalBlockBorderWrapper"] {
-    background: var(--card) !important;
-    border-radius: 16px !important;
-    padding: 6px 4px !important;
-    box-shadow: 0 20px 45px rgba(8,19,38,0.35) !important;
-    border: 1px solid #E7ECF4 !important;
+[data-testid="stExpander"] {
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    background: #FFFFFF;
 }
+
+
+/* ---------- Premium compact login page ---------- */
+.cc-login-page {
+    min-height: 78vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cc-login-wrap {
+    width: 100%;
+    max-width: 430px;
+    margin: 0 auto;
+}
+
+.cc-login-brand {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.cc-login-logo {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 12px auto;
+    border-radius: 20px;
+    background: #FFFFFF;
+    border: 1.5px solid #C89BFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 5px;
+    box-shadow: 0 10px 28px rgba(0,0,0,.16);
+}
+
+.cc-login-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.cc-login-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 25px;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin: 0;
+    letter-spacing: -.4px;
+}
+
+.cc-login-subtitle {
+    font-size: 12px;
+    color: rgba(255,255,255,.72);
+    margin-top: 5px;
+}
+
+.st-key-login_card {
+    max-width: 430px !important;
+    margin: 0 auto !important;
+    padding: 20px 22px 18px 22px !important;
+    border-radius: 18px !important;
+    box-shadow: 0 22px 55px rgba(0,0,0,.22) !important;
+}
+
+.st-key-login_card [data-testid="stTextInput"] {
+    margin-bottom: 7px !important;
+}
+
+.st-key-login_card [data-testid="stTextInput"] label {
+    font-size: 12px !important;
+    line-height: 1.2 !important;
+    font-weight: 500 !important;
+    margin-bottom: 5px !important;
+}
+
+.st-key-login_card [data-testid="stTextInput"] label p {
+    font-size: 12px !important;
+    font-weight: 500 !important;
+}
+
+.st-key-login_card [data-testid="stTextInput"] input {
+    height: 38px !important;
+    min-height: 38px !important;
+    padding: 7px 11px !important;
+    font-size: 13px !important;
+    border-radius: 9px !important;
+    box-sizing: border-box !important;
+}
+
+.st-key-login_card .stButton button {
+    min-height: 38px !important;
+    height: 38px !important;
+    font-size: 13px !important;
+    border-radius: 9px !important;
+    padding: 6px 12px !important;
+}
+
+.st-key-login_card .cc-login-small {
+    text-align: center;
+    font-size: 11px;
+    color: #9992A5;
+    margin: 8px 0 5px 0;
+}
+
+.st-key-login_card .cc-login-switch {
+    text-align: center;
+    font-size: 12px;
+    color: #756C82;
+    margin: 7px 0;
+}
+
+@media (max-width: 700px) {
+    .st-key-login_card {
+        max-width: 92% !important;
+        padding: 18px !important;
+    }
+}
+
+/* ---------- Login ---------- */
+.st-key-login_card,
+[data-testid="stVerticalBlockBorderWrapper"].st-key-login_card,
+.st-key-login_card [data-testid="stVerticalBlockBorderWrapper"],
+[data-testid="stVerticalBlockBorderWrapper"] {
+    background: #FFFFFF !important;
+    border-radius: 20px !important;
+    padding: 6px 4px !important;
+    box-shadow: 0 20px 50px rgba(52, 30, 79, .16) !important;
+    border: 1px solid var(--border) !important;
+}
+
+.st-key-login_card *,
 [data-testid="stVerticalBlockBorderWrapper"] * {
     color: var(--ink) !important;
 }
+
+.st-key-login_card label,
+.st-key-login_card label p,
 [data-testid="stVerticalBlockBorderWrapper"] label,
 [data-testid="stVerticalBlockBorderWrapper"] label p {
-    color: var(--ink-soft) !important;
+    color: var(--muted) !important;
     font-weight: 500 !important;
 }
-[data-testid="stVerticalBlockBorderWrapper"] h1,
-[data-testid="stVerticalBlockBorderWrapper"] h2,
-[data-testid="stVerticalBlockBorderWrapper"] h3,
-[data-testid="stVerticalBlockBorderWrapper"] h4 {
-    color: var(--gold) !important;
-    font-family: 'Sora', sans-serif !important;
-}
+
+.st-key-login_card input,
 [data-testid="stVerticalBlockBorderWrapper"] input {
-    background: #F7F9FC !important;
+    background: #FAF9FC !important;
     color: var(--ink) !important;
-    border: 1px solid #D9E1EC !important;
-    border-radius: 8px !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 10px !important;
 }
-[data-testid="stVerticalBlockBorderWrapper"] .stButton button {
-    background: #FFFFFF !important;
-    color: var(--navy) !important;
-    border: 1px solid #D9E1EC !important;
-    border-radius: 8px !important;
-    font-weight: 600 !important;
-}
-[data-testid="stVerticalBlockBorderWrapper"] .stButton button:hover {
-    border-color: var(--gold) !important;
-    background: #F7F9FC !important;
-}
-[data-testid="stVerticalBlockBorderWrapper"] button[kind="primary"] {
-    background: var(--gold) !important;
-    color: var(--navy) !important;
+
+.st-key-login_card button[kind="primary"],
+.st-key-login_card [data-testid="stBaseButton-primary"],
+[data-testid="stVerticalBlockBorderWrapper"] button[kind="primary"],
+[data-testid="stVerticalBlockBorderWrapper"] [data-testid="stBaseButton-primary"] {
+    background: var(--purple) !important;
+    color: #FFFFFF !important;
     border: none !important;
+    border-radius: 10px !important;
 }
-[data-testid="stVerticalBlockBorderWrapper"] button[kind="primary"]:hover {
-    background: #edb955 !important;
-}
-[data-testid="stVerticalBlockBorderWrapper"] [data-testid="stAlert"] {
-    background: #FDF2F2 !important;
-    border: 1px solid #F3C4C4 !important;
-    border-radius: 6px !important;
+
+.st-key-login_card button[kind="primary"]:hover,
+.st-key-login_card [data-testid="stBaseButton-primary"]:hover {
+    background: var(--purple-dark) !important;
 }
 </style>
 """
 
-st.markdown(CUSTOM_CSS, unsafe_allow_html=True)  # CSS ends here
+st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
 
 logger = logging.getLogger(__name__)  # Records errors/requests/response time for debugging
 
@@ -679,7 +887,11 @@ skills, their resume, and their goals.
 ============================
 CONVERSATION FLOW
 ============================
-
+First the user asking about how are you hi etc ... you response that Hello!I am fine Thank you to asking me! How can i Help You today in Careercompaass AI ! ---- tht's it not much more adding like first we dont know what is the help and waht is need so directly not saying anything like you are also make a python developeres etc 
+* if the user saying Great then you pause and emojis like happy etc...not saying waht interest etc ...
+* if the user directly saying i am interested in gen ai and i know the gen ai,machine learning concepts etc... so you response  first not predict any role of the user you only saying That's Sound Intersting!Can you share your resume/CV so i can read and analysis them and response on it!.
+* First Read only Document whatever the user upload on them if the user read them you only tell i see your resume should we dicuss on it ? likemthat's flow user  good 
+ If the user question who's made by you and first the answer i am assistant and i was made by Saniya Patel
 STEP 1 — Understand current skills
 When a user greets you or says they're confused about a career direction,
 warmly introduce yourself and ask what they already know — e.g. Python,
@@ -880,117 +1092,136 @@ def logout():
 # LOGIN / SIGNUP PAGE
 # =========================================================
 def render_login_page():
-
     st.markdown(
         """
         <style>
-        [data-testid="stSidebar"] { display: none; }
         .stApp {
-            background: radial-gradient(circle at 50% -10%, #1B3868 0%, #10213F 55%, #081326 100%);
+            background:
+                radial-gradient(circle at 50% -10%, rgba(150,93,236,.30), transparent 35%),
+                linear-gradient(145deg, #0D1B36 0%, #162B52 48%, #0B1730 100%);
         }
+        [data-testid="stSidebar"] { display: none; }
         </style>
         """,
         unsafe_allow_html=True,
     )
 
-    st.markdown("<div style='height:48px;'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='height:26px;'></div>", unsafe_allow_html=True)
 
-    col_l, col_c, col_r = st.columns([1, 1.2, 1])
+    st.markdown("<div class='cc-login-wrap'>", unsafe_allow_html=True)
 
-    with col_c:
-        with st.container(border=True):
+    logo_content = (
+        LOGO_IMG_TAG
+        if LOGO_IMG_TAG
+        else '<span style="font-family:Sora,sans-serif;font-weight:800;font-size:25px;color:#7B4BD9;">CC</span>'
+    )
 
-            logo_content = (
-                LOGO_IMG_TAG if LOGO_IMG_TAG
-                else '<span style="font-family:\'Sora\',sans-serif;font-weight:800;font-size:28px;color:#10213F;">CC</span>'
+    st.markdown(
+        f"""
+        <div class="cc-login-brand">
+            <div class="cc-login-logo">
+                {logo_content}
+            </div>
+            <div class="cc-login-title">CareerCompass AI</div>
+            <div class="cc-login-subtitle">Your personal guide to the right tech career</div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    with st.container(border=True, key="login_card"):
+
+        if st.session_state.auth_mode == "login":
+
+            username = st.text_input(
+                "Username",
+                key="login_username",
+                placeholder="Enter your username",
             )
 
+            password = st.text_input(
+                "Password",
+                type="password",
+                key="login_password",
+                placeholder="Enter your password",
+            )
+
+            if st.button("Login", use_container_width=True, type="primary"):
+                if not username or not password:
+                    st.error("Please enter both username and password.")
+                elif verify_user(username, password):
+                    st.session_state.authenticated = True
+                    st.session_state.username = username
+                    st.session_state.messages = load_chat_messages(
+                        st.session_state.session_id
+                    )
+                    st.rerun()
+                else:
+                    st.error("Invalid username or password.")
+
             st.markdown(
-                f"""
-                <div style="display:flex;flex-direction:column;align-items:center;
-                            text-align:center;padding-top:4px;">
-                    <div style="width:96px;height:96px;border-radius:24px;background:#FFFFFF;
-                                border:2px solid #E3A63E;display:flex;align-items:center;
-                                justify-content:center;overflow:hidden;padding:6px;
-                                box-sizing:border-box;box-shadow:0 6px 16px rgba(16,33,63,0.18);
-                                margin-bottom:12px;">
-                        {logo_content}
-                    </div>
-                    <div style="font-family:'Sora',sans-serif;font-size:26px;font-weight:800;color:#FFDB58;">
-                        CareerCompass AI
-                    </div>
-                    <div style="font-family:'Inter',sans-serif;font-size:13px;color:#ffffff;
-                                margin:4px 0 18px 0;">
-                        Your personal guide to the right tech career
-                    </div>
-                </div>
-                """,
+                '<div class="cc-login-small">New to CareerCompass AI?</div>',
                 unsafe_allow_html=True,
             )
 
-            if st.session_state.auth_mode == "login":
+            if st.button("Create an account", use_container_width=True):
+                st.session_state.auth_mode = "signup"
+                st.rerun()
 
-                st.markdown("#### Welcome back 👋")
-
-                username = st.text_input("Username", key="login_username")
-                password = st.text_input("Password", type="password", key="login_password")
-
-                if st.button("Login", use_container_width=True, type="primary"):
-                    if not username or not password:
-                        st.error("Please enter both username and password.")
-                    elif verify_user(username, password):
-                        st.session_state.authenticated = True
-                        st.session_state.username = username
-                        st.session_state.messages = load_chat_messages(st.session_state.session_id)
-                        st.rerun()
-                    else:
-                        st.error("Invalid username or password.")
-
-                st.markdown(
-                    "<div style='text-align:center;font-size:13px;color:#FFFFFF;margin-top:8px;'>New here?</div>",
-                    unsafe_allow_html=True,
-                )
-                if st.button("Create an account", use_container_width=True):
-                    st.session_state.auth_mode = "signup"
-                    st.rerun()
-
-            else:
-
-                st.markdown("#### Create your account ✨")
-
-                new_username = st.text_input("Choose a username", key="signup_username")
-                new_password = st.text_input("Choose a password", type="password", key="signup_password")
-                confirm_password = st.text_input("Confirm password", type="password", key="signup_confirm")
-
-                if st.button("Create Account", use_container_width=True, type="primary"):
-                    if not new_username or not new_password:
-                        st.error("Please fill in all fields.")
-                    elif new_password != confirm_password:
-                        st.error("Passwords do not match.")
-                    elif user_exists(new_username):
-                        st.error("That username is already taken.")
-                    else:
-                        create_user(new_username, new_password)
-                        st.session_state.authenticated = True
-                        st.session_state.username = new_username
-                        st.session_state.messages = load_chat_messages(st.session_state.session_id)
-                        st.rerun()
-
-                if st.button("Already have an account? Log in", use_container_width=True):
-                    st.session_state.auth_mode = "login"
-                    st.rerun()
+        else:
 
             st.markdown(
-                "<div style='display:flex;align-items:center;gap:12px;margin:18px 0 14px 0;'>"
-                "<div style='flex:1;height:1px;background:#D9E1EC;'></div>"
-                "<span style='color:#616E7F;font-size:14px;font-weight:600;letter-spacing:0.5px;'>OR</span>"
-                "<div style='flex:1;height:1px;background:#D9E1EC;'></div>"
-                "</div>",
+                "<div style='text-align:center;font-family:Sora,sans-serif;"
+                "font-size:19px;font-weight:700;margin-bottom:13px;'>Create your account</div>",
                 unsafe_allow_html=True,
             )
 
-            if st.button("Continue with Google", use_container_width=True):
-                google_login()
+            new_username = st.text_input(
+                "Username",
+                key="signup_username",
+                placeholder="Choose a username",
+            )
+
+            new_password = st.text_input(
+                "Password",
+                type="password",
+                key="signup_password",
+                placeholder="Choose a password",
+            )
+
+            confirm_password = st.text_input(
+                "Confirm Password",
+                type="password",
+                key="signup_confirm",
+                placeholder="Re-enter your password",
+            )
+
+            if st.button("Create Account", use_container_width=True, type="primary"):
+                if not new_username or not new_password:
+                    st.error("Please fill in all fields.")
+                elif new_password != confirm_password:
+                    st.error("Passwords do not match.")
+                elif user_exists(new_username):
+                    st.error("That username is already taken.")
+                else:
+                    create_user(new_username, new_password)
+                    st.session_state.authenticated = True
+                    st.session_state.username = new_username
+                    st.session_state.messages = load_chat_messages(
+                        st.session_state.session_id
+                    )
+                    st.rerun()
+
+            st.markdown(
+                '<div class="cc-login-switch">Already have an account?</div>',
+                unsafe_allow_html=True,
+            )
+
+            if st.button("Back to Login", use_container_width=True):
+                st.session_state.auth_mode = "login"
+                st.rerun()
+
+    st.markdown("</div>", unsafe_allow_html=True)
 
 
 if not st.session_state.authenticated:
@@ -1047,7 +1278,7 @@ with st.sidebar:
 
     st.divider()
 
-    st.caption("📄 Upload your resume — preview it, then click Analyze Resume")
+    st.caption("Upload your resume")
     resume_file = st.file_uploader(
         "Resume",
         type=["pdf", "docx", "txt", "png", "jpg", "jpeg"],
@@ -1066,7 +1297,7 @@ with st.sidebar:
 
     st.divider()
 
-    st.caption(f"Model: {MODEL}")
+    st.caption("AI career mentor · Secure session")
 
 
 # =========================================================
@@ -1075,42 +1306,26 @@ with st.sidebar:
 
 if resume_file is not None:
     file_suffix = Path(resume_file.name).suffix.lower()
-
-    # Show the selected file before the user submits it.
-    st.sidebar.success(f"Selected: {resume_file.name}")
     file_size_kb = len(resume_file.getvalue()) / 1024
-    st.sidebar.caption(f"File size: {file_size_kb:.1f} KB")
 
-    # Preview the uploaded resume.
-    if file_suffix == ".pdf":
-        pdf_b64 = base64.b64encode(resume_file.getvalue()).decode("utf-8")
-        st.sidebar.markdown(
-            f"""
-            <div style="margin-top:8px;border:1px solid #E3A63E;
-                        border-radius:8px;overflow:hidden;background:#FFFFFF;">
-                <iframe src="data:application/pdf;base64,{pdf_b64}"
-                        width="100%" height="420" style="border:none;">
-                </iframe>
+    # Compact resume selection card — no large document preview.
+    icon = "📕" if file_suffix == ".pdf" else "📄" if file_suffix in (".docx", ".txt") else "🖼️"
+
+    st.sidebar.markdown(
+        f"""
+        <div class="cc-resume-card">
+            <div class="cc-file-icon">{icon}</div>
+            <div class="cc-file-info">
+                <div class="cc-file-name" title="{resume_file.name}">{resume_file.name}</div>
+                <div class="cc-file-meta">{file_size_kb:.1f} KB · {file_suffix.replace('.', '').upper()} file</div>
             </div>
-            """,
-            unsafe_allow_html=True,
-        )
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
-    elif file_suffix in (".png", ".jpg", ".jpeg"):
-        st.sidebar.image(resume_file, caption="Resume preview", use_container_width=True)
-
-    elif file_suffix == ".txt":
-        preview_text = resume_file.getvalue().decode("utf-8", errors="ignore")
-        st.sidebar.text_area(
-            "Resume preview", preview_text[:5000], height=260, disabled=True
-        )
-
-    elif file_suffix == ".docx":
-        st.sidebar.info("DOCX selected. Click Analyze Resume to extract and analyze it.")
-
-    # IMPORTANT: selection alone does NOT submit the resume anymore.
     analyze_clicked = st.sidebar.button(
-        "📄 Analyze Resume", use_container_width=True, type="primary"
+        "Analyze Resume", use_container_width=True, type="primary"
     )
 
     if analyze_clicked:
@@ -1198,7 +1413,7 @@ st.markdown(
         <div class="cc-seal">{LOGO_IMG_TAG if LOGO_IMG_TAG else "CC"}</div>
         <div>
             <p class="cc-title">CareerCompass AI</p>
-            <p class="cc-subtitle">Find the right tech career path — guided by AI, backed by your resume</p>
+            <p class="cc-subtitle">Your personal AI career mentor</p>
         </div>
     </div>
     <div class="cc-hairline"></div>
@@ -1222,10 +1437,7 @@ st.markdown(
 
 if not groq_api_key:
 
-    st.info(
-        "👈 Enter your Groq API key in the sidebar "
-        "to start chatting."
-    )
+    st.info("Add your Groq API key from the sidebar to start chatting.")
 
 
 for message in st.session_state.messages:
@@ -1241,7 +1453,7 @@ for message in st.session_state.messages:
 
 
 prompt = st.chat_input(
-    "Tell me about your skills, or ask about a career path...",
+    "Message CareerCompass AI...",
     disabled=not bool(groq_api_key),
 )
 
