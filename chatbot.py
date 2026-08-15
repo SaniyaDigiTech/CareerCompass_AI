@@ -58,7 +58,7 @@ def get_logo_b64():
 
 LOGO_B64 = get_logo_b64()
 LOGO_IMG_TAG = (
-    f'<img src="data:image/png;base64,{LOGO_B64}" '
+    f'<img src="CareerCompass AI Logo.png;base64,{LOGO_B64}" '
     f'style="width:100%;height:100%;object-fit:contain;">'
     if LOGO_B64 else None
 )
