@@ -31,17 +31,19 @@ MODEL = "llama-3.3-70b-versatile"
 RESUME_MARKER = "[Resume Uploaded:"
 
 
+BASE_DIR = Path(__file__).resolve().parent
+
 LOGO_CANDIDATES = [
-    "CareerCompass_AI_Logo.png",
-    "CareerCompass AI Logo.png",
-    "careercompass_ai_logo.png",
-    "logo.png",
+    BASE_DIR / "CareerCompass AI Logo.png",
+    BASE_DIR / "CareerCompass_AI_Logo.png",
+    BASE_DIR / "careercompass_ai_logo.png",
+    BASE_DIR / "logo.png",
 ]
 
 
 st.set_page_config(
     page_title="CareerCompass AI",
-    page_icon="🚀",
+    page_icon="🧭",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -57,11 +59,12 @@ def get_logo_b64():
 
 
 LOGO_B64 = get_logo_b64()
-LOGO_IMG_TAG = f"""
-<img src="{LOGO_URL}"
-     alt="CareerCompass AI Logo"
-     style="width:100%;height:100%;object-fit:contain;">
-"""
+LOGO_IMG_TAG = (
+    f'<img src="data:image/png;base64,{LOGO_B64}" '
+    f'alt="CareerCompass AI Logo" '
+    f'style="width:100%;height:100%;object-fit:contain;">'
+    if LOGO_B64 else None
+)
 
 # CSS
 CUSTOM_CSS = """
@@ -869,6 +872,9 @@ with st.sidebar:
     st.caption(
         "Add your Groq API key to start chatting with your career assistant."
     )
+
+    if LOGO_B64 is None:
+        st.warning("CareerCompass logo file not found. Put `CareerCompass AI Logo.png` beside `chatbot.py`.")
 
     groq_api_key = st.text_input(
         "Groq API Key",
