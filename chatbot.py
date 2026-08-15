@@ -32,16 +32,16 @@ RESUME_MARKER = "[Resume Uploaded:"
 
 
 LOGO_CANDIDATES = [
-    "Assets/CareerCompass_AI_Logo.png",
-    "Assets/CareerCompass AI Logo.png",
-    "Assets/careercompass_ai_logo.png",
-    "Assets/logo.png",
+    "CareerCompass_AI_Logo.png",
+    "CareerCompass AI Logo.png",
+    "careercompass_ai_logo.png",
+    "logo.png",
 ]
 
 
 st.set_page_config(
     page_title="CareerCompass AI",
-    page_icon="🧭",
+    page_icon="🚀",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -1044,7 +1044,7 @@ if not groq_api_key:
 
 for message in st.session_state.messages:
 
-    avatar = "🧑🏻" if message["role"] == "user" else "💬"
+    avatar = "🧑🏻" if message["role"] == "user" else "🤖"
 
     with st.chat_message(
         message["role"],
