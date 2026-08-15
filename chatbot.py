@@ -4,6 +4,7 @@ import uuid
 import logging
 import base64
 import hashlib
+import urllib.request
 import io
 from pathlib import Path
 import streamlit as st
@@ -40,31 +41,47 @@ LOGO_CANDIDATES = [
     BASE_DIR / "logo.png",
 ]
 
-
-st.set_page_config(
-    page_title="CareerCompass AI",
-    page_icon="🧭",
-    layout="wide",
-    initial_sidebar_state="expanded"
+# Verified GitHub Raw URL for the logo.
+LOGO_URL = (
+    "https://raw.githubusercontent.com/"
+    "SaniyaDigiTech/CareerCompass_AI/main/"
+    "CareerCompass%20AI%20Logo.png"
 )
 
-
-@st.cache_data
+@st.cache_data(ttl=3600, show_spinner=False)
 def get_logo_b64():
+    # First try the file shipped with the repository.
     for candidate in LOGO_CANDIDATES:
         p = Path(candidate)
-        if p.exists():
-            return base64.b64encode(p.read_bytes()).decode()
+        if p.exists() and p.is_file():
+            try:
+                return base64.b64encode(p.read_bytes()).decode()
+            except Exception:
+                pass
+
+    # If Streamlit Cloud did not mount/find the PNG, fetch the exact
+    # GitHub Raw image and embed it as base64.
+    try:
+        with urllib.request.urlopen(LOGO_URL, timeout=10) as response:
+            image_bytes = response.read()
+        if image_bytes:
+            return base64.b64encode(image_bytes).decode()
+    except Exception as error:
+        logging.getLogger(__name__).warning(
+            "Could not load CareerCompass logo: %s", error
+        )
+
     return None
 
-
 LOGO_B64 = get_logo_b64()
+
 LOGO_IMG_TAG = (
     f'<img src="data:image/png;base64,{LOGO_B64}" '
     f'alt="CareerCompass AI Logo" '
-    f'style="width:100%;height:100%;object-fit:contain;">'
+    f'style="width:100%;height:100%;object-fit:contain;display:block;">'
     if LOGO_B64 else None
 )
+
 
 # CSS
 CUSTOM_CSS = """
@@ -874,7 +891,7 @@ with st.sidebar:
     )
 
     if LOGO_B64 is None:
-        st.warning("CareerCompass logo file not found. Put `CareerCompass AI Logo.png` beside `chatbot.py`.")
+        st.warning("CareerCompass logo could not be loaded. Check the GitHub logo file or deployment.")
 
     groq_api_key = st.text_input(
         "Groq API Key",
