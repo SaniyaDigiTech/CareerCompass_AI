@@ -47,7 +47,6 @@ st.set_page_config(
 )
 
 
-
 @st.cache_data
 def get_logo_b64():
     for candidate in LOGO_CANDIDATES:
@@ -382,170 +381,6 @@ section[data-testid="stSidebar"] .stAlert {
 }
 
 
-/* ---------- Premium compact login page ---------- */
-.cc-login-page {
-    min-height: 78vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.cc-login-wrap {
-    width: 100%;
-    max-width: 430px;
-    margin: 0 auto;
-}
-
-.cc-login-brand {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.cc-login-logo {
-    width: 70px;
-    height: 70px;
-    margin: 0 auto 12px auto;
-    border-radius: 20px;
-    background: #FFFFFF;
-    border: 1.5px solid #C89BFF;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    padding: 5px;
-    box-shadow: 0 10px 28px rgba(0,0,0,.16);
-}
-
-.cc-login-logo img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-.cc-login-title {
-    font-family: 'Sora', sans-serif;
-    font-size: 25px;
-    font-weight: 700;
-    color: #FFFFFF;
-    margin: 0;
-    letter-spacing: -.4px;
-}
-
-.cc-login-subtitle {
-    font-size: 12px;
-    color: rgba(255,255,255,.72);
-    margin-top: 5px;
-}
-
-.st-key-login_card {
-    max-width: 430px !important;
-    margin: 0 auto !important;
-    padding: 20px 22px 18px 22px !important;
-    border-radius: 18px !important;
-    box-shadow: 0 22px 55px rgba(0,0,0,.22) !important;
-}
-
-.st-key-login_card [data-testid="stTextInput"] {
-    margin-bottom: 7px !important;
-}
-
-.st-key-login_card [data-testid="stTextInput"] label {
-    font-size: 12px !important;
-    line-height: 1.2 !important;
-    font-weight: 500 !important;
-    margin-bottom: 5px !important;
-}
-
-.st-key-login_card [data-testid="stTextInput"] label p {
-    font-size: 12px !important;
-    font-weight: 500 !important;
-}
-
-.st-key-login_card [data-testid="stTextInput"] input {
-    height: 38px !important;
-    min-height: 38px !important;
-    padding: 7px 11px !important;
-    font-size: 13px !important;
-    border-radius: 9px !important;
-    box-sizing: border-box !important;
-}
-
-.st-key-login_card .stButton button {
-    min-height: 38px !important;
-    height: 38px !important;
-    font-size: 13px !important;
-    border-radius: 9px !important;
-    padding: 6px 12px !important;
-}
-
-.st-key-login_card .cc-login-small {
-    text-align: center;
-    font-size: 11px;
-    color: #9992A5;
-    margin: 8px 0 5px 0;
-}
-
-.st-key-login_card .cc-login-switch {
-    text-align: center;
-    font-size: 12px;
-    color: #756C82;
-    margin: 7px 0;
-}
-
-@media (max-width: 700px) {
-    .st-key-login_card {
-        max-width: 92% !important;
-        padding: 18px !important;
-    }
-}
-
-/* ---------- Login ---------- */
-.st-key-login_card,
-[data-testid="stVerticalBlockBorderWrapper"].st-key-login_card,
-.st-key-login_card [data-testid="stVerticalBlockBorderWrapper"],
-[data-testid="stVerticalBlockBorderWrapper"] {
-    background: #FFFFFF !important;
-    border-radius: 20px !important;
-    padding: 6px 4px !important;
-    box-shadow: 0 20px 50px rgba(52, 30, 79, .16) !important;
-    border: 1px solid var(--border) !important;
-}
-
-.st-key-login_card *,
-[data-testid="stVerticalBlockBorderWrapper"] * {
-    color: var(--ink) !important;
-}
-
-.st-key-login_card label,
-.st-key-login_card label p,
-[data-testid="stVerticalBlockBorderWrapper"] label,
-[data-testid="stVerticalBlockBorderWrapper"] label p {
-    color: var(--muted) !important;
-    font-weight: 500 !important;
-}
-
-.st-key-login_card input,
-[data-testid="stVerticalBlockBorderWrapper"] input {
-    background: #FAF9FC !important;
-    color: var(--ink) !important;
-    border: 1px solid var(--border) !important;
-    border-radius: 10px !important;
-}
-
-.st-key-login_card button[kind="primary"],
-.st-key-login_card [data-testid="stBaseButton-primary"],
-[data-testid="stVerticalBlockBorderWrapper"] button[kind="primary"],
-[data-testid="stVerticalBlockBorderWrapper"] [data-testid="stBaseButton-primary"] {
-    background: var(--purple) !important;
-    color: #FFFFFF !important;
-    border: none !important;
-    border-radius: 10px !important;
-}
-
-.st-key-login_card button[kind="primary"]:hover,
-.st-key-login_card [data-testid="stBaseButton-primary"]:hover {
-    background: var(--purple-dark) !important;
-}
 </style>
 """
 
@@ -568,13 +403,6 @@ def init_db():
     conn = get_connection()
     conn.executescript(
         """
-        CREATE TABLE IF NOT EXISTS users(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT UNIQUE,
-    password_hash TEXT,
-    auth_provider TEXT DEFAULT 'local',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
 
         CREATE TABLE IF NOT EXISTS conversation_memory(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -605,70 +433,6 @@ def init_db():
 
     conn.commit()
     conn.close()
-
-
-# =========================================================
-# AUTH HELPERS
-# =========================================================
-def hash_password(password):
-    return hashlib.sha256(password.encode("utf-8")).hexdigest()
-
-
-def user_exists(username):
-    conn = get_connection()
-    row = conn.execute(
-        "SELECT 1 FROM users WHERE username = ?", (username,)
-    ).fetchone()
-    conn.close()
-    return row is not None
-
-
-def create_user(username, password, provider="local"):
-    conn = get_connection()
-    conn.execute(
-        "INSERT INTO users(username, password_hash, auth_provider) VALUES (?, ?, ?)",
-        (username, hash_password(password), provider),
-    )
-    conn.commit()
-    conn.close()
-
-
-def verify_user(username, password):
-    conn = get_connection()
-    row = conn.execute(
-        "SELECT password_hash FROM users WHERE username = ?", (username,)
-    ).fetchone()
-    conn.close()
-    if not row:
-        return False
-    return row["password_hash"] == hash_password(password)
-
-
-def google_login():
-    """
-    DEMO Google login.
-    -------------------------------------------------------------
-    For a REAL Google OAuth flow, swap this out for an implementation
-    using `streamlit-oauth` or `authlib`, backed by an OAuth Client
-    ID/Secret from the Google Cloud Console, roughly:
-
-        from streamlit_oauth import OAuth2Component
-        oauth2 = OAuth2Component(CLIENT_ID, CLIENT_SECRET, AUTH_URL, TOKEN_URL)
-        result = oauth2.authorize_button("Continue with Google", REDIRECT_URI, SCOPE)
-        if result and "token" in result:
-            # fetch the user's email/profile with the access token,
-            # then set st.session_state.authenticated / username from that.
-
-    This placeholder just signs the user in as a demo account so the
-    rest of the app (chat + resume flow) can be tested end-to-end.
-    """
-    demo_username = "google_user"
-    if not user_exists(demo_username):
-        create_user(demo_username, uuid.uuid4().hex, provider="google")
-    st.session_state.authenticated = True
-    st.session_state.username = "Google User"
-    st.session_state.messages = load_chat_messages(st.session_state.session_id)
-    st.rerun()
 
 
 # =========================================================
@@ -890,7 +654,8 @@ CONVERSATION FLOW
 First the user asking about how are you hi etc ... you response that Hello!I am fine Thank you to asking me! How can i Help You today in Careercompaass AI ! ---- tht's it not much more adding like first we dont know what is the help and waht is need so directly not saying anything like you are also make a python developeres etc 
 * if the user saying Great then you pause and emojis like happy etc...not saying waht interest etc ...
 * if the user directly saying i am interested in gen ai and i know the gen ai,machine learning concepts etc... so you response  first not predict any role of the user you only saying That's Sound Intersting!Can you share your resume/CV so i can read and analysis them and response on it!.
-* First Read only Document whatever the user upload on them if the user read them you only tell i see your resume should we dicuss on it ? likemthat's flow user  good 
+* First Read only Document whatever the user upload on them if the user read them you only tell i see your resume should we dicuss on it ? likemthat's flow user  good
+ If the user question who's made by you and first the answer i am assistant and i was made by Saniya Patel
  If the user question who's made by you and first the answer i am assistant and i was made by Saniya Patel
 STEP 1 — Understand current skills
 When a user greets you or says they're confused about a career direction,
@@ -1059,14 +824,6 @@ init_db()
 if "session_id" not in st.session_state:
     st.session_state.session_id = str(uuid.uuid4())
 
-if "authenticated" not in st.session_state:
-    st.session_state.authenticated = False
-
-if "username" not in st.session_state:
-    st.session_state.username = None
-
-if "auth_mode" not in st.session_state:
-    st.session_state.auth_mode = "login"
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
@@ -1079,154 +836,6 @@ def new_chat():
     st.session_state.session_id = str(uuid.uuid4())
     st.session_state.messages = []
     st.session_state.last_resume_name = None
-
-
-def logout():
-    st.session_state.authenticated = False
-    st.session_state.username = None
-    st.session_state.auth_mode = "login"
-    st.session_state.messages = []
-
-
-# =========================================================
-# LOGIN / SIGNUP PAGE
-# =========================================================
-def render_login_page():
-    st.markdown(
-        """
-        <style>
-        .stApp {
-            background:
-                radial-gradient(circle at 50% -10%, rgba(150,93,236,.30), transparent 35%),
-                linear-gradient(145deg, #0D1B36 0%, #162B52 48%, #0B1730 100%);
-        }
-        [data-testid="stSidebar"] { display: none; }
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    st.markdown("<div style='height:26px;'></div>", unsafe_allow_html=True)
-
-    st.markdown("<div class='cc-login-wrap'>", unsafe_allow_html=True)
-
-    logo_content = (
-        LOGO_IMG_TAG
-        if LOGO_IMG_TAG
-        else '<span style="font-family:Sora,sans-serif;font-weight:800;font-size:25px;color:#7B4BD9;">CC</span>'
-    )
-
-    st.markdown(
-        f"""
-        <div class="cc-login-brand">
-            <div class="cc-login-logo">
-                {logo_content}
-            </div>
-            <div class="cc-login-title">CareerCompass AI</div>
-            <div class="cc-login-subtitle">Your personal guide to the right tech career</div>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    with st.container(border=True, key="login_card"):
-
-        if st.session_state.auth_mode == "login":
-
-            username = st.text_input(
-                "Username",
-                key="login_username",
-                placeholder="Enter your username",
-            )
-
-            password = st.text_input(
-                "Password",
-                type="password",
-                key="login_password",
-                placeholder="Enter your password",
-            )
-
-            if st.button("Login", use_container_width=True, type="primary"):
-                if not username or not password:
-                    st.error("Please enter both username and password.")
-                elif verify_user(username, password):
-                    st.session_state.authenticated = True
-                    st.session_state.username = username
-                    st.session_state.messages = load_chat_messages(
-                        st.session_state.session_id
-                    )
-                    st.rerun()
-                else:
-                    st.error("Invalid username or password.")
-
-            st.markdown(
-                '<div class="cc-login-small">New to CareerCompass AI?</div>',
-                unsafe_allow_html=True,
-            )
-
-            if st.button("Create an account", use_container_width=True):
-                st.session_state.auth_mode = "signup"
-                st.rerun()
-
-        else:
-
-            st.markdown(
-                "<div style='text-align:center;font-family:Sora,sans-serif;"
-                "font-size:19px;font-weight:700;margin-bottom:13px;'>Create your account</div>",
-                unsafe_allow_html=True,
-            )
-
-            new_username = st.text_input(
-                "Username",
-                key="signup_username",
-                placeholder="Choose a username",
-            )
-
-            new_password = st.text_input(
-                "Password",
-                type="password",
-                key="signup_password",
-                placeholder="Choose a password",
-            )
-
-            confirm_password = st.text_input(
-                "Confirm Password",
-                type="password",
-                key="signup_confirm",
-                placeholder="Re-enter your password",
-            )
-
-            if st.button("Create Account", use_container_width=True, type="primary"):
-                if not new_username or not new_password:
-                    st.error("Please fill in all fields.")
-                elif new_password != confirm_password:
-                    st.error("Passwords do not match.")
-                elif user_exists(new_username):
-                    st.error("That username is already taken.")
-                else:
-                    create_user(new_username, new_password)
-                    st.session_state.authenticated = True
-                    st.session_state.username = new_username
-                    st.session_state.messages = load_chat_messages(
-                        st.session_state.session_id
-                    )
-                    st.rerun()
-
-            st.markdown(
-                '<div class="cc-login-switch">Already have an account?</div>',
-                unsafe_allow_html=True,
-            )
-
-            if st.button("Back to Login", use_container_width=True):
-                st.session_state.auth_mode = "login"
-                st.rerun()
-
-    st.markdown("</div>", unsafe_allow_html=True)
-
-
-if not st.session_state.authenticated:
-    render_login_page()
-    st.stop()
 
 
 # =========================================================
@@ -1252,16 +861,13 @@ with st.sidebar:
             </div>
             <div style="font-family:'Sora',sans-serif;font-size:19px;font-weight:700;
                         line-height:1.2;color:#FFDB58;">CareerCompass AI</div>
-            <div style="font-size:12px;color:#B9C6DA;margin-top:2px;">
-                Welcome  <b>{st.session_state.username}</b>
-            </div>
         </div>
         """,
         unsafe_allow_html=True,
     )
 
     st.caption(
-        "Enter your Groq API key to start chatting with your career assistant."
+        "Add your Groq API key to start chatting with your career assistant."
     )
 
     groq_api_key = st.text_input(
@@ -1289,10 +895,6 @@ with st.sidebar:
 
     if st.button("➕ New Chat", use_container_width=True):
         new_chat()
-        st.rerun()
-
-    if st.button("🚪 Logout", use_container_width=True):
-        logout()
         st.rerun()
 
     st.divider()
@@ -1358,7 +960,7 @@ if resume_file is not None:
                 st.session_state.last_resume_name = resume_file.name
                 save_resume(
                     st.session_state.session_id,
-                    st.session_state.username,
+                    "Guest User",
                     resume_file.name,
                     extracted_text,
                 )
